@@ -1,21 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | My Name (My GitHub username)</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  </head>
 
-  <body>
-    <div id="root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TV Show Project | Advocate Maroga github.com/advocatem</title>
+  <link href="style.css" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <!-- Search Icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+
+<body>
+  <div id="root">
+    <div id="loading">
+      <img src="Mr Maroga.mp4" alt="">
     </div>
+    <div class="search-container">
+      <form id="search-form">
+        <input type="text" placeholder="Search.." name="search" id="search-input">
+        <button type="submit" id="submit"><i class="fa fa-times"></i></i></button>
+      </form>
+      <h3 id="results">Displaying 73/73 episodes</h3>
+      <select name="movies" id="select-show" class="form-select" aria-label="Default select example">
+        <option value="All episodes" selected>All episodes</option>
+      </select>
+    </div>
+    </div>
+  </div>
 
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
+  <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+  <script src="episodes.js"></script>
 
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
+  <!-- Loads YOUR javascript code -->
+  <script src="script.js"></script>
+  <!-- <script src="app.js"></script> -->
+
+  <script>
+    // function Onchange() {
+    //   let value = document.getElementById('select-show').value;
+    //   alert(`you have Selected: ${value}`)
+
+    //   for (var i = 0; i < title.length; i++) {
+    //     // If the text is within the card...
+    //     if (title[i] === value || summery[i] === value) {
+    //       // ...remove the `.is-hidden` class.
+    //       title[i].classList.remove("is-hidden");
+    //       images[i].classList.remove("is-hidden");
+    //       summery[i].classList.remove("is-hidden");
+    //       title[i].classList.add("on-Screen");
+    //       // count += title.length
+    //     } else {
+    //       // Otherwise, add the class.
+    //       title[i].classList.add("is-hidden");
+    //       images[i].classList.add("is-hidden");
+    //       summery[i].classList.add("is-hidden");
+    //       row[i].classList.add('is-hidden');
+    //     }
+    //   }
+    // }
+  </script>
+</body>
+
 </html>
