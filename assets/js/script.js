@@ -9,7 +9,7 @@ function setup() {
   fetch("https://api.tvmaze.com/shows/527/episodes")
     .then((response) => {
       if (response.status >= 200 && response.status <= 299) {
-        console.log(response);
+        // console.log(response);
         return response.json();
       } else {
         // throw new Error(
@@ -23,11 +23,11 @@ function setup() {
       // do whatever you want with the JSON response
       allEpisodes = jsonResponse;
       makePageForEpisodes(allEpisodes);
-      console.log(allEpisodes);
+      // console.log(allEpisodes);
     })
-    .catch((error) => {
+    .catch((err) => {
       // Handle the error
-      console.log(error);
+      console.log(err);
     });
 };
 
@@ -55,31 +55,183 @@ function makePageForEpisodes(episodeList) {
   const showMovies = document.querySelector('.movies-grid')
 
 
-  episodeList.forEach((episode) => {
+  // episodeList.forEach((episode) => {
 
-    // Movie Title
-    const movies = `${episode.name} - S0${episode.season}E0${episode.number}`;
-    // console.log(movies);
+  //   // Movie Title
+  //   const movies = `${episode.name} - S0${episode.season}E0${episode.number}`;
+  //   // console.log(movies);
 
-    // Movie Image
-    const image = episode.image.medium;
+  //   // Movie Image
+  //   const image = episode.image.medium;
+  //   // console.log(image);
+
+
+  //   // Movie Summary
+  //   const summary = episode.summary.replace(/(<([^>]+)>)/gi, "");
+  //   // console.log(summary);
+
+  //   // Year of relize
+  //   const premiered = episode.airdate;
+  //   console.log(premiered)
+
+
+  //   // Movie Rate
+  //   const rate = episode.rating.average;
+  //   console.log(rate)
+
+
+
+  //   const template = `
+  //   <div class="movie-card">
+
+  //           <div class="card-head">
+  //             <img src="${image}" alt="" class="card-img">
+
+  //             <div class="card-overlay">
+
+  //               <div class="bookmark">
+  //                 <ion-icon name="bookmark-outline"><span></span></ion-icon>
+
+  //               </div>
+
+  //               <div class="rating">
+  //                 <ion-icon name="star-outline"></ion-icon>
+  //                 <span>${rate}</span>
+  //               </div>
+
+  //               <div class="play">
+  //                 <a href="https://mrmaroga.com" class="navbar-brand" target="_blank">
+  //                 <ion-icon name="play-circle-outline"></ion-icon>
+  //                 </a>
+  //               </div>
+
+  //             </div>
+  //           </div>
+
+  //           <div class="card-body">
+  //             <h3 class="card-title">${movies}</h3>
+
+  //             <div class="card-info">
+  //               <span class="genre">Action/Comedy</span>
+  //               <span class="year">${premiered}</span>
+  //             </div>
+  //           </div>
+
+  //         </div>`;
+  //   showMovies.innerHTML += template;
+  // });
+
+
+  // show on the Screen
+  // rootElem.appendChild(firsDiv) // first Div
+  showMovies.appendChild(row) // Second Div called Row
+
+  /*
+    The End Of the Home Section
+    */
+
+
+
+  /**
+   * the Start of Select Options
+   * Select any Episodes you Would like to watch
+   * Make option automatically
+  */
+
+  for (let i = 0; i < episodeList.length; i++) {
+    let movies = `S0${episodeList[i].season}E0${episodeList[i].number} - ${episodeList[i].name}`;
+    const option = document.createElement('option');
+    const optionText = document.createTextNode(movies);
+
+    // set class
+    option.classList.add('movies')
+    // set option text
+    option.appendChild(optionText);
+    // and option value
+    option.setAttribute('value', `${episodeList[i].name}`);
+
+    document.getElementById('SelectEpisode').add(option);
+    // select.append(option);
+    // console.log(option)
+  };
+  /**
+   * We have Added the select list to the UI
+   */
+
+
+
+
+  /**
+   * The Start Of Select Options
+   * Select Any Movies By It's year Of Realize 
+   */
+
+
+
+  for (let i = 0; i < episodeList.length; i++) {
+    let years = episodeList[i].airdate;
+    const option = document.createElement('option');
+    const optionText = document.createTextNode(years);
+
+    // set class
+    option.classList.add('movies')
+    // set option text
+    option.appendChild(optionText);
+    // and option value
+    option.setAttribute('value', episodeList[i].name);
+
+    document.querySelector('.year').add(option);
+    // select.append(option);
+    console.log(option)
+  };
+  /**
+   * We have Added the year list to the UI
+   */
+
+
+  // const options = document.createElement('option');
+  // options.classList.add('select')
+  // options.select
+
+
+  // episodeList.forEach(Shows(episodeList));
+
+  let episode = episodeList
+
+  // show All the Episodes On the Screen
+  // function Shows(episode) {
+  // List 4 search
+
+  let searchName = [];
+  let searchSummery = [];
+  let displayCount = document.getElementById('results');
+  displayCount.textContent = `Showing ${episode.length}`
+
+
+  for (let i = 0; i < episode.length; i++) {
+    let movies = `${episode[i].name} - S0${episode[i].season}E0${episode[i].number}`;
+
+    // Add in the array
+    searchName.push(episode[i].name);
+    searchSummery.push(episode[i].summary)
+
+    console.log(`${episode[i].name} - S0${episode[i].season}E0${episode[i].number}`);
+
+    const image = episode[i].image['medium'];
     // console.log(image);
+    // remove the <p></p> tags inside the text using regex from summary
 
+    const summery = episode[i].summary.replace(/(<([^>]+)>)/gi, "");
+    // console.log(summery);
+    // console.log(countWords(summery))
 
-    // Movie Summary
-    const summary = episode.summary.replace(/(<([^>]+)>)/gi, "");
-    // console.log(summary);
-
-    // Year of relize
-    const premiered = episode.airdate;
-    console.log(premiered)
-
-
-    // Movie Rate
-    const rate = episode.rating.average;
+    const rate = episode[i].rating.average;
     console.log(rate)
 
+    const premiered = episode[i].premiered;
 
+    // Level 400
+    // const rate = episode[i].rate
 
     const template = `
     <div class="movie-card">
@@ -119,127 +271,10 @@ function makePageForEpisodes(episodeList) {
 
           </div>`;
     showMovies.innerHTML += template;
-    //console.log(rowElm.innerHTML);
-  });
-
+  }
   const btn = `<button class="load-more">LOAD MORE</button>`
   showMovies.innerHTML += btn
-  // show on the Screen
-  // rootElem.appendChild(firsDiv) // first Div
-  showMovies.appendChild(row) // Second Div called Row
-
-  /*
-    The End Of the Home Section
-    */
-
-
-
-  /**
-   * the Start of Select Options
-   * Select any Episodes you Would like to watch
-   * Make option automatically
-  */
-
-  for (let i = 0; i < episodeList.length; i++) {
-    let movies = `S0${episodeList[i].season}E0${episodeList[i].number} - ${episodeList[i].name}`;
-    const option = document.createElement('option');
-    const optionText = document.createTextNode(movies);
-
-    // set class
-    option.classList.add('movies')
-    // set option text
-    option.appendChild(optionText);
-    // and option value
-    option.setAttribute('value', `${episodeList[i].name}`);
-
-    document.getElementById('SelectEpisode').add(option);
-    // select.append(option);
-    // console.log(option)
-  };
-  /**
-   * We have Added the select list to the UI
-   */
-
-
-  /**
-   * The Start Of Select Options
-   * Select Any Movies By It's year Of Realize 
-   */
-
-  for (let i = 0; i < episodeList.length; i++) {
-    let years = episodeList[i].airdate;
-    const option = document.createElement('option');
-    const optionText = document.createTextNode(years);
-
-    // set class
-    option.classList.add('movies')
-    // set option text
-    option.appendChild(optionText);
-    // and option value
-    option.setAttribute('value', episodeList[i].name);
-
-    document.querySelector('.year').add(option);
-    // select.append(option);
-    console.log(option)
-  };
-  // const options = document.createElement('option');
-  // options.classList.add('select')
-  // options.select
-
-
-  // episodeList.forEach(Shows(episodeList));
-
-  let episode = episodeList
-
-  // show All the Episodes On the Screen
-  // function Shows(episode) {
-  // List 4 search
-
-  let searchName = [];
-  let searchSummery = [];
-  let displayCount = document.getElementById('results');
-  displayCount.textContent = `Showing ${episode.length}`
-  for (let i = 0; i < episode.length; i++) {
-    let movies = `${episode[i].name} - S0${episode[i].season}E0${episode[i].number}`;
-
-    // Add in the array
-    searchName.push(episode[i].name);
-    searchSummery.push(episode[i].summary)
-
-    // console.log(`${episode[i].name} - S0${episode[i].season}E0${episode[i].number}`);
-
-    const image = episode[i].image['medium'];
-    // console.log(image);
-    // remove the <p></p> tags inside the text using regex from summary
-
-    const summery = episode[i].summary.replace(/(<([^>]+)>)/gi, "");
-    // console.log(summery);
-    // console.log(countWords(summery))
-
-    const rate = episode[i].rating.average;
-    console.log(rate)
-
-    // Level 400
-    // const rate = episode[i].rate
-
-    const template = `<div class="column-12 sm-column-6 md-column-4 lg-column-3">
-        <div class="episodeDiv">
-                    <div class="title">
-                        <h5>${movies}</h5>
-                    </div>
-                    <div class="images">
-                        <img src=${image}>
-                    </div>
-                    <div class="summery">
-                        <p>${summery}</p>
-                    </div>
-                     
-                </div>
-                </div>`;
-    // row.innerHTML = row.innerHTML + template;
-    // console.log(row.innerHTML);
-  }
-  rootElem.appendChild(row) //Display in HTML
+  // rootElem.appendChild(row) //Display in HTML
 
 
   document.getElementById('search-input').addEventListener('keyup', function (e) {
@@ -249,8 +284,7 @@ function makePageForEpisodes(episodeList) {
       images = document.querySelectorAll('.images'),
       summery = document.querySelectorAll('.summery'),
       row = document.querySelectorAll('.column-12'),
-      rate = document.querySelectorAll(".rating")
-    // count = 0;
+      rate = document.querySelectorAll(".rating");
 
     // Locate the search input
     let search_query = document.getElementById("search-input").value,
@@ -303,7 +337,7 @@ function makePageForEpisodes(episodeList) {
 
 
 
-  document.getElementById('select-show').addEventListener('change', (e) => {
+  document.getElementById('SelectEpisode').addEventListener('change', (e) => {
     let title = document.querySelectorAll('.title'),
       images = document.querySelectorAll('.images'),
       summery = document.querySelectorAll('.summery'),
@@ -334,6 +368,126 @@ function makePageForEpisodes(episodeList) {
     }
     e.preventDefault();
   });
+
+  /**
+   * Show Categories
+   * starts here
+   */
+  const category = `
+            <div class="category-card">
+            <img src="${episodeList[4].image.medium}" alt="" class="card-img" id="movie1">
+            <div class="name">Action</div>
+            <div class="total">100</div>
+          </div>
+
+          <div class="category-card">
+            <img src="${episodeList[8].image.medium}" alt="" class="card-img">
+            <div class="name">Comedy</div>
+            <div class="total">50</div>
+          </div>
+
+          <div class="category-card">
+            <img src="${episodeList[60].image.medium}" alt="" class="card-img">
+            <div class="name">Thriller</div>
+            <div class="total">20</div>
+          </div>
+
+          <div class="category-card">
+            <img src="${episodeList[40].image.medium}" alt="" class="card-img">
+            <div class="name">Horror</div>
+            <div class="total">80</div>
+          </div>
+
+          <div class="category-card">
+            <img src="${episodeList[34].image.medium}" alt="" class="card-img">
+            <div class="name">Adventure</div>
+            <div class="total">100</div>
+          </div>
+
+          <div class="category-card">
+            <img src="${episodeList[14].image.medium}" alt="" class="card-img">
+            <div class="name">Animated</div>
+            <div class="total">50</div>
+          </div>
+
+          <div class="category-card">
+            <img src="${episodeList[70].image.medium}" alt="" class="card-img">
+            <div class="name">Crime</div>
+            <div class="total">20</div>
+          </div>
+
+          <div class="category-card">
+            <img src="${episodeList[12].image.medium}" alt="" class="card-img">
+            <div class="name">SCI-FI</div>
+            <div class="total">80</div>
+          </div>
+`
+  document.querySelector('.category-grid').innerHTML = category
+  /* * Show Categories
+     * Ends here
+     * /
+
+  * Show Categories
+  * starts here
+  */
+  const live = `
+ 
+          <div class="live-card">
+
+            <div class="card-head">
+              <img src="${episodeList[2].image.medium}" alt="" class="card-img">
+              <div class="live-badge">LIVE</div>
+              <div class="total-viewers">305K viewers</div>
+              <div class="play">
+                <ion-icon name="play-circle-outline"></ion-icon>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <img src="${episodeList[13].image.medium}" alt="" class="avatar">
+              <h3 class="card-title">Planet Earth II <br> Season 1 - Islands</h3>
+            </div>
+
+          </div>
+
+          <div class="live-card">
+
+            <div class="card-head">
+              <img src="${episodeList[80].image.medium}" alt="" class="card-img">
+              <div class="live-badge">LIVE</div>
+              <div class="total-viewers">1.7M viewers</div>
+              <div class="play">
+                <ion-icon name="play-circle-outline"></ion-icon>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <img src="${episodeList[78].image.medium}" alt="" class="avatar">
+              <h3 class="card-title">Game of Thrones <br> Season 5 - Mother's Mercy</h3>
+            </div>
+
+          </div>
+
+          <div class="live-card">
+
+            <div class="card-head">
+              <img src="${episodeList[86].image.medium}" alt="" class="card-img">
+              <div class="live-badge">LIVE</div>
+              <div class="total-viewers">468K viewers</div>
+              <div class="play">
+                <ion-icon name="play-circle-outline"></ion-icon>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <img src="./assets/images/HBO-Logo-square.jpg" alt="" class="avatar">
+              <h3 class="card-title">Vikings <br> Season 4 - What Might Have Been</h3>
+            </div>
+
+
+`
+  document.querySelector('.live-grid').innerHTML = live
+
 
   // Onchange Function
   function Onchange() {
