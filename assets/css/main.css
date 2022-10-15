@@ -68,6 +68,8 @@ header, nav { background: var(--rich-black-fogra-29); }
     # IShidden for search Q
  */
 .is-hidden { display: none; }
+.test {display: none;}
+.count {color: azure;}
 
 /*-------------------------------------*\
   #MAIN
@@ -268,6 +270,12 @@ nav { margin-right: 200px; }
 
 .banner-card .card-title {
   font-size: 3em;
+  color: var(--white);
+  text-shadow: 2px 0 2px #0007;
+}
+
+.banner-card .summary {
+  font-size: 1em;
   color: var(--white);
   text-shadow: 2px 0 2px #0007;
 }
