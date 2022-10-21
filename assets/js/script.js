@@ -27,6 +27,43 @@ function setup() {
 
 
 
+// Show more info when clicked on a movie
+function Banner(img, year, title, summary) {
+  let banner = document.querySelector('.banner')
+  let bannerTemplate = `
+             <div class="banner-card">
+
+          <img src="${img}" class="banner-img" alt="">
+
+          <div class="card-content">
+            <div class="card-info">
+
+              <div class="genre">
+                <ion-icon name="film"></ion-icon>
+                <span>Action/Thriller</span>
+              </div>
+
+              <div class="year">
+                <ion-icon name="calendar"></ion-icon>
+                <span>${year}</span>
+              </div>
+
+              <div class="duration">
+                <ion-icon name="time"></ion-icon>
+                <span>2h 11m</span>
+              </div>
+
+              <div class="quality">4K</div>
+
+            </div>
+            <h2 class="card-title">${title}</h2>
+            <p>${summary}</p>
+          </div>
+
+        </div>
+        `
+  banner.innerHTML = bannerTemplate;
+}
 
 
 function makePageForEpisodes(episodeList) {
@@ -76,7 +113,7 @@ function makePageForEpisodes(episodeList) {
 
 
     const template = `
-    <div class="movie-card" id="movies-card" onclick="Banner(${image}, ${premiered}, ${movies}, ${summary})">
+    <div class="movie-card" id="movies-card" onclick="Banner('${image}', '${premiered}', '${movies}', '${summary}')">
 
             <div class="card-head">
               <img src="${image}" alt="" class="card-img">
@@ -118,6 +155,11 @@ function makePageForEpisodes(episodeList) {
   const btn = `<button class="load-more">LOAD MORE</button>`
   showMovies.innerHTML += btn
 
+  // document.querySelectorAll('.movie-card').addEventListener('click', function (card) {
+  //   card.querySelector('.card-img').src
+
+  //   Banner('https://api.tvmaze.com/shows/527/episodes');
+  // })
 
   // show on the Screen
   // rootElem.appendChild(firsDiv) // first Div
@@ -197,74 +239,6 @@ function makePageForEpisodes(episodeList) {
   displayCount.textContent = `Displaying ${episode.length}/${episode.length}`
 
 
-  for (let i = 0; i < episode.length; i++) {
-    let movies = `${episode[i].name} - S0${episode[i].season}E0${episode[i].number}`;
-
-    // Add in the array
-    searchName.push(episode[i].name);
-    searchSummery.push(episode[i].summary)
-
-    console.log(`${episode[i].name} - S0${episode[i].season}E0${episode[i].number}`);
-
-    const image = episode[i].image['medium'];
-    // console.log(image);
-    // remove the <p></p> tags inside the text using regex from summary
-
-    const summery = episode[i].summary.replace(/(<([^>]+)>)/gi, "");
-    // console.log(summery);
-    // console.log(countWords(summery))
-
-    const rate = episode[i].rating.average;
-    console.log(rate)
-
-    const premiered = episode[i].premiered;
-
-    // Level 400
-    // const rate = episode[i].rate
-
-    const template = `
-    <div class="movie-card" id="movie-card">
-
-            <div class="card-head">
-              <img src="${image}" alt="" class="card-img">
-
-              <div class="card-overlay">
-
-                <div class="bookmark">
-                  <ion-icon name="bookmark-outline"><span></span></ion-icon>
-                
-                </div>
-
-                <div class="rating">
-                  <ion-icon name="star-outline"></ion-icon>
-                  <span>${rate}</span>
-                </div>
-
-                <div class="play">
-                  <a href="https://mrmaroga.com" class="navbar-brand" target="_blank">
-                  <ion-icon name="play-circle-outline"></ion-icon>
-                  </a>
-                </div>
-
-              </div>
-            </div>
-
-            <div class="card-body">
-              <h3 class="card-title">${movies}</h3>
-
-              <div class="card-info">
-                <span class="genre">Action/Comedy</span>
-                <span class="year">${premiered}</span>
-              </div>
-            </div>
-
-          </div>`;
-    // showMovies.innerHTML += template;
-  }
-  // const btn = `<button class="load-more">LOAD MORE</button>`
-  // showMovies.innerHTML += btn
-  // rootElem.appendChild(row) //Display in HTML
-
 
   document.getElementById('search-input').addEventListener('keyup', function (e) {
 
@@ -273,44 +247,62 @@ function makePageForEpisodes(episodeList) {
       images = document.querySelectorAll('.card-img'),
       card = document.querySelectorAll('.movie-card'),
       rate = document.querySelectorAll(".rating"),
-      summery = document.querySelectorAll('.summery'),
-      hide = document.querySelectorAll('.count');
+      summery = document.querySelectorAll('.summery');
+
 
 
     // // Locate the search input
     let search_query = document.getElementById("search-input").value;
 
+    for (movieCard of card) {
+      let cardTitle = movieCard.querySelector('.card-title');
 
+      if (cardTitle) {
+        let checkTitle = cardTitle.innerText.toLowerCase().includes(search_query.toLowerCase());
 
-    // Loop through the title
-    for (var i = 0; i < title.length; i++) {
-      // If the text is within the movie-card
-
-      let checkTitle = title[i].innerText.toLowerCase().includes(search_query.toLowerCase());
-      // let checkSummery = summery[i].innerText.toLowerCase().includes(search_query.toLowerCase());
-      // console.log(checkSummery)
-
-
-      console.log(typeof (checkTitle));
-      if (checkTitle) {
-        // ...remove the `.is-hidden` class.
-        // title[i].classList.remove("is-hidden");
-        // images[i].classList.remove("is-hidden");
-        card[i].classList.remove("is-hidden");
-        card[i].classList.add('count')
-        // rate[i].classList.remove("is-hidden");
-
-
-      } else {
-        card[i].classList.add("is-hidden")
-        // Otherwise, add the class.
-        // title[i].classList.add("is-hidden");
-        // images[i].classList.add("is-hidden");
-        // card[i].classList.add("is-hidden");
-        // rate[i].classList.add('is-hidden')
+        if (checkTitle) {
+          movieCard.classList.remove("is-hidden");
+          movieCard.classList.add('count');
+        } else {
+          movieCard.classList.add("is-hidden");
+          movieCard.classList.remove('count');
+        }
       }
-    };
+      // let checkTitle = movieCard.querySelector('.card-title').innerText.toLowerCase().includes(search_query.toLowerCase());
+
+
+    }
+
+    // // Loop through the title
+    // for (var i = 0; i < title.length; i++) {
+    //   // If the text is within the movie-card
+
+    //   let checkTitle = title[i].innerText.toLowerCase().includes(search_query.toLowerCase());
+    //   // let checkSummery = summery[i].innerText.toLowerCase().includes(search_query.toLowerCase());
+    //   // console.log(checkSummery)
+
+
+    //   console.log(typeof (checkTitle));
+    //   if (checkTitle) {
+    //     // ...remove the `.is-hidden` class.
+    //     // title[i].classList.remove("is-hidden");
+    //     // images[i].classList.remove("is-hidden");
+    //     card[i].classList.remove("is-hidden");
+    //     card[i].classList.add('count');
+    //     // rate[i].classList.remove("is-hidden");
+    //   } else {
+    //     card[i].classList.remove('count');
+    //     card[i].classList.add("is-hidden");
+    //     // Otherwise, add the class.
+    //     // title[i].classList.add("is-hidden");
+    //     // images[i].classList.add("is-hidden");
+    //     // card[i].classList.add("is-hidden");
+    //     // rate[i].classList.add('is-hidden')
+    //   }
+    // };
     //   countResults = episode.length;
+    let hide = document.querySelectorAll('.count');
+    console.log(hide.length)
     displayCount = document.getElementById('results');
     displayCount.textContent = `Displaying ${hide.length}/ ${episode.length} `
 
@@ -324,6 +316,34 @@ function makePageForEpisodes(episodeList) {
 
 
 
+
+
+  document.querySelector('.year').addEventListener('change', (e) => {
+    let title = document.querySelectorAll('.card-title'),
+      images = document.querySelectorAll('.images'),
+      summery = document.querySelectorAll('.summery'),
+      row = document.querySelectorAll('.card-overlay'),
+      rating = document.querySelectorAll(".is-hidden")
+
+    console.log(e.target.value)
+    for (var i = 0; i < title.length; i++) {
+      // If the text is within the card...
+
+      if (title[i].innerText.toLowerCase().includes(e.target.value.toLowerCase())) {
+        // ...remove the `.is-hidden` class.
+        card[i].classList.remove("is-hidden");
+        card[i].classList.add('count')
+      } else {
+        card[i].classList.add("is-hidden")
+        // Otherwise, add the class.
+      }
+
+      if (e.target.value === 'all genres') {
+        location.reload();
+      }
+    }
+    e.preventDefault();
+  });
 
 
   document.getElementById('SelectEpisode').addEventListener('change', (e) => {
@@ -352,9 +372,6 @@ function makePageForEpisodes(episodeList) {
     }
     e.preventDefault();
   });
-
-
-
 
 
 
@@ -477,81 +494,9 @@ function makePageForEpisodes(episodeList) {
 `
   document.querySelector('.live-grid').innerHTML = live
 
-  // Show more info when clicked on a movie
-  function Banner(img, year, title, summary) {
-    let banner = document.querySelector('.banner')
-    let bannerTemplate = `
-             <div class="banner-card">
-
-          <img src="${img}" class="banner-img" alt="">
-
-          <div class="card-content">
-            <div class="card-info">
-
-              <div class="genre">
-                <ion-icon name="film"></ion-icon>
-                <span>Action/Thriller</span>
-              </div>
-
-              <div class="year">
-                <ion-icon name="calendar"></ion-icon>
-                <span>${year}</span>
-              </div>
-
-              <div class="duration">
-                <ion-icon name="time"></ion-icon>
-                <span>2h 11m</span>
-              </div>
-
-              <div class="quality">4K</div>
-
-            </div>
-            <h2 class="card-title">${title}</h2>
-            <p>${summary}</p>
-          </div>
-
-        </div>
-        `
-    banner.innerHTML += bannerTemplate;
-  }
 
 
 
 };
 window.onload = setup;
 
-'use strict';
-
-
-
-// variables for navbar menu toggle
-const header = document.querySelector('header');
-const nav = document.querySelector('nav');
-const navbarMenuBtn = document.querySelector('.navbar-menu-btn');
-
-// variables for navbar search toggle
-const navbarForm = document.querySelector('.navbar-form');
-const navbarFormCloseBtn = document.querySelector('.navbar-form-close');
-const navbarSearchBtn = document.querySelector('.navbar-search-btn');
-
-
-// navbar menu toggle function
-function navIsActive() {
-  header.classList.toggle('active');
-  nav.classList.toggle('active');
-  navbarMenuBtn.classList.toggle('active');
-}
-
-navbarMenuBtn.addEventListener('click', navIsActive);
-
-
-
-// navbar search toggle function
-const searchBarIsActive = () => navbarForm.classList.toggle('active');
-
-navbarSearchBtn.addEventListener('click', searchBarIsActive);
-navbarFormCloseBtn.addEventListener('click', searchBarIsActive);
-
-
-
-// 
