@@ -2,64 +2,175 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../favicon.ico" type="image/png">
   <title>TV Show Project | Advocate Maroga github.com/advocatem</title>
-  <link href="style.css" rel="stylesheet" />
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <!-- Search Icon -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+  <!--
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/main.css">
+  <link rel="stylesheet" href="./assets/css/media_query.css">
+
+  <!--
+    - google font link
+  -->
+  <link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900" rel="stylesheet" />
 </head>
 
 <body>
-  <div id="root">
-    <div id="loading">
-      <img src="Mr Maroga.mp4" alt="">
-    </div>
-    <div class="search-container">
-      <form id="search-form">
-        <input type="text" placeholder="Search.." name="search" id="search-input">
-        <button type="submit" id="submit"><i class="fa fa-times"></i></i></button>
-      </form>
-      <h3 id="results">Displaying 73/73 episodes</h3>
-      <select name="movies" id="select-show" class="form-select" aria-label="Default select example">
-        <option value="All episodes" selected>All episodes</option>
-      </select>
-    </div>
-    </div>
+
+
+
+
+  <!--
+    - main container
+  -->
+  <div class="container">
+
+    <!--
+      - #HEADER SECTION
+    -->
+
+    <header class="header">
+    </header>
+
+
+
+
+
+    <!--
+      - MAIN SECTION
+    -->
+    <main>
+
+      <!--
+        - #BANNER SECTION
+      -->
+      <section class="banner">
+        <!-- Javascript input -->
+      </section>
+
+
+
+
+
+      <!--
+        - #MOVIES SECTION
+      -->
+      <section class="movies">
+
+        <!--
+          - filter bar
+        -->
+        <div class="filter-bar">
+
+          <div class="filter-dropdowns">
+
+            <select name="episode" class="episodes selectEpisodes" id="SelectEpisode">
+              <option value="all genres ">All Episodes</option>
+              <!-- Javascript Input -->
+            </select>
+
+            <select name="year" class="year">
+              <option value="all years">All the years</option>
+              <!-- Javascript Input -->
+              <!-- <p></p> -->
+            </select>
+
+          </div>
+
+          <div class="filter-radios">
+            <!-- 
+            <input type="radio" name="grade" id="featured" checked>
+            <label for="featured">Featured</label>
+
+            <input type="radio" name="grade" id="popular">
+            <label for="popular">Popular</label>
+
+            <input type="radio" name="grade" id="newest">
+            <label for="newest">Newest</label> -->
+
+            <div class="checked-radio-bg"></div>
+
+          </div>
+
+          <li> <a href="#live" class="navbar-link" id="results">LIVE</a> </li>
+
+        </div>
+
+
+        <!--
+          - movies grid
+        -->
+        <!-- <div class="movies">
+                          
+                        </div> -->
+
+        <div class="movies-grid">
+          <!-- Javascript Input -->
+        </div>
+
+      </section>
+
+
+
+
+
+      <!--
+        - #CATEGORY SECTION
+      -->
+      <section class="category" id="category">
+        <!-- Javascript Input -->
+
+      </section>
+
+
+
+
+
+      <!--
+        - #LIVE SECTION
+      -->
+      <section class="live" id="live">
+        <!-- Javascript Input -->
+      </section>
+
   </div>
 
-  <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-  <script src="episodes.js"></script>
 
-  <!-- Loads YOUR javascript code -->
-  <script src="script.js"></script>
-  <!-- <script src="app.js"></script> -->
 
-  <script>
-    // function Onchange() {
-    //   let value = document.getElementById('select-show').value;
-    //   alert(`you have Selected: ${value}`)
+  </main>
 
-    //   for (var i = 0; i < title.length; i++) {
-    //     // If the text is within the card...
-    //     if (title[i] === value || summery[i] === value) {
-    //       // ...remove the `.is-hidden` class.
-    //       title[i].classList.remove("is-hidden");
-    //       images[i].classList.remove("is-hidden");
-    //       summery[i].classList.remove("is-hidden");
-    //       title[i].classList.add("on-Screen");
-    //       // count += title.length
-    //     } else {
-    //       // Otherwise, add the class.
-    //       title[i].classList.add("is-hidden");
-    //       images[i].classList.add("is-hidden");
-    //       summery[i].classList.add("is-hidden");
-    //       row[i].classList.add('is-hidden');
-    //     }
-    //   }
-    // }
-  </script>
+
+
+
+
+  <!--
+      - FOOTER SECTION
+    -->
+  <footer id="footers">
+    <!-- Javascript input -->
+  </footer>
+
+  </div>
+
+
+
+
+
+  <!--
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!--
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
